@@ -33,6 +33,7 @@ public:
     virtual ~EFuseBoardWidget();
     void drawMonitChannel(ChannelGroupBox &channel, int x_pos, int y_pos);
     void drawConfigChannel(ChannelGroupBox &channel, int x_pos, int y_pos);
+    void deleteChannelPointers(ChannelGroupBox &channel);
 
 private:
 
@@ -45,9 +46,9 @@ private:
     ChannelGroupBox ch7;
     ChannelGroupBox ch8;
 
-    boost::shared_ptr<QTabWidget> 	tab_window;
-    boost::shared_ptr<QWidget> 		config_tab;
-    boost::shared_ptr<QWidget> 		monit_tab;
+    QTabWidget 	*tab_window;
+    QWidget 	*config_tab;
+    QWidget 	*monit_tab;
 
 };
 

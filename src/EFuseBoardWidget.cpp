@@ -7,12 +7,12 @@ EFuseBoardWidget::EFuseBoardWidget(QWidget *parent)
     setFixedSize(520, 625);
 
     /* Creates a tab window with two tabs */
-    tab_window.reset(new QTabWidget(this));
-    monit_tab.reset(new QWidget(tab_window.get()));
-    config_tab.reset(new QWidget(tab_window.get()));
+    tab_window = new QTabWidget(this);
+    monit_tab = new QWidget(tab_window);
+    config_tab = new QWidget(tab_window);
     tab_window->setGeometry(QRect(0, 0, 520, 625));
-    tab_window->addTab(monit_tab.get(), "Monit");
-    tab_window->addTab(config_tab.get(), "Config");
+    tab_window->addTab(monit_tab, "Monit");
+    tab_window->addTab(config_tab, "Config");
 
     /* Initializes channels' number variable */
 	ch1.chan_num = "1";
@@ -50,6 +50,18 @@ EFuseBoardWidget::EFuseBoardWidget(QWidget *parent)
 
 EFuseBoardWidget::~EFuseBoardWidget()
 {
+	deleteChannelPointers(ch1);
+	deleteChannelPointers(ch2);
+	deleteChannelPointers(ch3);
+	deleteChannelPointers(ch4);
+	deleteChannelPointers(ch5);
+	deleteChannelPointers(ch6);
+	deleteChannelPointers(ch7);
+	deleteChannelPointers(ch8);
+
+	delete config_tab;
+	delete monit_tab;
+	delete tab_window;
 }
 
 
@@ -63,14 +75,14 @@ void EFuseBoardWidget::drawMonitChannel(ChannelGroupBox &channel, int x_pos, int
     int third_row = 85;
     int max_current = 10.5;
 
-	channel.monit_group_box = new QGroupBox(monit_tab.get());
+	channel.monit_group_box = new QGroupBox(monit_tab);
 	channel.monit_group_box->setGeometry(x_pos, y_pos, 200, 120);
 	channel.monit_group_box->setStyleSheet("QGroupBox{border: 2px solid;}");
 
     /* CHANNEL LABEL */
 
 	channel.label_channel = new QLabel("CH "+channel.chan_num,channel.monit_group_box);
-	channel.label_channel->setObjectName("label_ch"+channel.chan_num);
+	channel.label_channel->setObjectName("monit_label_ch"+channel.chan_num);
 	channel.label_channel->setFont(QFont("Verdana", 10, 100));
 	channel.label_channel->setGeometry(QRect(first_collumn, first_row, 100, 20));
 	channel.label_channel->setAlignment(Qt::AlignHCenter);
@@ -78,7 +90,7 @@ void EFuseBoardWidget::drawMonitChannel(ChannelGroupBox &channel, int x_pos, int
     /* CHANNEL STATUS */
 
 	channel.status_channel = new QLabel("",channel.monit_group_box);
-	channel.status_channel->setObjectName("ch"+channel.chan_num+"_power");
+	channel.status_channel->setObjectName("monit_ch"+channel.chan_num+"_power");
 	channel.status_channel->setAlignment(Qt::AlignHCenter);
 	channel.status_channel->setGeometry(QRect(second_column, first_row+2.5, 50, 15));
 	channel.status_channel->setStyleSheet("background-color: red;");
@@ -123,14 +135,14 @@ void EFuseBoardWidget::drawConfigChannel(ChannelGroupBox &channel, int x_pos, in
 	int fourth_row = 75;
 	int fith_row = 95;
 
-	channel.config_group_box = new QGroupBox(config_tab.get());
+	channel.config_group_box = new QGroupBox(config_tab);
 	channel.config_group_box->setGeometry(x_pos, y_pos, 200, 120);
 	channel.config_group_box->setStyleSheet("QGroupBox{border: 2px solid;}");
 
     /* CHANNEL LABEL */
 
 	channel.label_channel = new QLabel("CH "+channel.chan_num,channel.config_group_box);
-	channel.label_channel->setObjectName("label_ch"+channel.chan_num);
+	channel.label_channel->setObjectName("config_label_ch"+channel.chan_num);
 	channel.label_channel->setFont(QFont("Verdana", 10, 100));
 	channel.label_channel->setGeometry(QRect(first_collumn, first_row, 100, 20));
 	channel.label_channel->setAlignment(Qt::AlignHCenter);
@@ -138,7 +150,7 @@ void EFuseBoardWidget::drawConfigChannel(ChannelGroupBox &channel, int x_pos, in
     /* CHANNEL STATUS */
 
 	channel.status_channel = new QLabel("",channel.config_group_box);
-	channel.status_channel->setObjectName("ch"+channel.chan_num+"_power");
+	channel.status_channel->setObjectName("config_ch"+channel.chan_num+"_power");
 	channel.status_channel->setAlignment(Qt::AlignHCenter);
 	channel.status_channel->setGeometry(QRect(second_column, first_row+2.5, 50, 15));
 	channel.status_channel->setStyleSheet("background-color: red;");
@@ -208,4 +220,26 @@ void EFuseBoardWidget::drawConfigChannel(ChannelGroupBox &channel, int x_pos, in
 	channel.status_led->setStyleSheet("background-color: red;");
 }
 
+void EFuseBoardWidget::deleteChannelPointers(ChannelGroupBox &channel)
+{
+	/* Deletes first the child pointers, otherwise the Qt Cretor crashes  */
+	delete channel.label_channel;
+	delete channel.label_current;
+	delete channel.label_max_current;
+	delete channel.label_power_up;
+	delete channel.label_voltage;
+	delete channel.label_led;
+	delete channel.status_channel;
+	delete channel.status_power_up;
+	delete channel.status_voltage;
+	delete channel.status_led;
+	delete channel.value_current;
+	delete channel.value_max_current;
+	delete channel.progress_current;
+
+	/* Deletes the parents pointer*/
+	delete channel.monit_group_box;
+	delete channel.config_group_box;
+
+}
 
