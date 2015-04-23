@@ -31,13 +31,13 @@ QIcon EFuseBoardWidgetPlugin::icon() const
 QString EFuseBoardWidgetPlugin::domXml() const
 {
         return "<ui language=\"c++\">\n"
-            " <widget class=\"EFuseBoardWidget\" name=\"efuseboardwidget\">\n"
+            " <widget class=\"EFuseBoardWidget\" name=\"efuseboard\">\n"
             "  <property name=\"geometry\">\n"
             "   <rect>\n"
             "    <x>0</x>\n"
             "    <y>0</y>\n"
-            "     <width>300</width>\n"
-            "     <height>120</height>\n"
+            "     <width>520</width>\n"
+            "     <height>625</height>\n"
             "   </rect>\n"
             "  </property>\n"
 //            "  <property name=\"toolTip\" >\n"

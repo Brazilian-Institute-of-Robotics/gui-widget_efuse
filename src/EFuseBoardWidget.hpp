@@ -2,17 +2,27 @@
 #define EFUSEBOARDWIDGET_HPP
 
 #include <QtGui>
+#include <boost/shared_ptr.hpp>
+
 
 struct ChannelGroupBox
 {
-	QGroupBox 		*group_box;
+	QGroupBox 		*monit_group_box;
+	QGroupBox 		*config_group_box;
 	QLabel 			*label_channel;
-	QLabel 			*status_channel;
 	QLabel 			*label_current;
+	QLabel 			*label_max_current;
+	QLabel 			*label_power_up;
+	QLabel 			*label_voltage;
+	QLabel 			*label_led;
+	QLabel 			*status_channel;
+	QLabel 			*status_power_up;
+	QLabel 			*status_voltage;
+	QLabel 			*status_led;
 	QLabel 			*value_current;
+	QLabel 			*value_max_current;
 	QProgressBar 	*progress_current;
 	QString  	 	 chan_num;
-	int				 max_current;
 };
 
 class EFuseBoardWidget : public QWidget
@@ -21,9 +31,8 @@ class EFuseBoardWidget : public QWidget
 public:
     EFuseBoardWidget(QWidget *parent = 0);
     virtual ~EFuseBoardWidget();
-    void drawMonitoringTab();
-    void drawChannel(ChannelGroupBox &channel, int x_pos, int y_pos);
-    void drawConfigurationTab();
+    void drawMonitChannel(ChannelGroupBox &channel, int x_pos, int y_pos);
+    void drawConfigChannel(ChannelGroupBox &channel, int x_pos, int y_pos);
 
 private:
 
@@ -36,9 +45,9 @@ private:
     ChannelGroupBox ch7;
     ChannelGroupBox ch8;
 
-    QTabWidget *tab_window;
-    QWidget *config_tab;
-    QWidget *monit_tab;
+    boost::shared_ptr<QTabWidget> 	tab_window;
+    boost::shared_ptr<QWidget> 		config_tab;
+    boost::shared_ptr<QWidget> 		monit_tab;
 
 };
 
