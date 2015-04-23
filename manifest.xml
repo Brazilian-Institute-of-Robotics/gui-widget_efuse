@@ -2,7 +2,7 @@
   <description brief="Widget for the EFuse Board">
   
   </description>
-  <author>/</author>
+  <author>Joao Neto; Rafael Saback/joao.neto@fieb.org.br; rafael.saback@fieb.org.br</author>
   <license></license>
   <url>http://</url>
   <logo>http://</logo>
@@ -15,4 +15,5 @@
   <depend package="dummy-dependency-n" />
   -->
   <depend package="base/types" />
+  <depend package="drivers/orogen/efuse_board" />
 </package>
