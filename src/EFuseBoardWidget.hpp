@@ -26,25 +26,6 @@ public:
     void drawConfigurationTab();
 
 private:
-//    QMainWindow *MainWindow;
-//    QLabel *label;
-//    QMenuBar *menubar;
-//    QStatusBar *statusbar;
-//    QFrame *frame;
-//    QGroupBox *group_box_ch1;
-//    QLabel *label_ch1;
-//    QLabel *label_ch1_max_curr;
-//    QLabel *label_ch1_actual_curr;
-//    QLabel *label_ch1_power_up;
-//    QLabel *label_ch1_check_voltage;
-//    QLabel *label_ch1_check_led;
-//
-//    QLabel *ch1_power;
-//    QLabel *ch1_max_curr;
-//    QLabel *ch1_actual_curr;
-//    QLabel *ch1_power_up;
-//    QLabel *ch1_check_voltage;
-//    QLabel *ch1_check_led;
 
     ChannelGroupBox ch1;
     ChannelGroupBox ch2;
@@ -59,10 +40,6 @@ private:
     QWidget *config_tab;
     QWidget *monit_tab;
 
-
-//    QGroupBox *group_box_ch1;
-//    QFormLayout *flay;
-//    QFormLayout *flay2;
 };
 
 #endif /* EFUSEBOARDWIDGET_HPP */

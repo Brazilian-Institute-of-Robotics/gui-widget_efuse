@@ -49,36 +49,18 @@ EFuseBoardWidget::EFuseBoardWidget(QWidget *parent)
 //
 //    QMetaObject::connectSlotsByName(MainWindow);
 
-    resize(520, 600);
+    resize(520, 625);
 
-//    tab_window = new QTabWidget(this);
-//    tab_window->setGeometry(QRect(0, 0, 100, 25));
-//    tab_window->
+    tab_window = new QTabWidget(this);
+    monit_tab = new QWidget(tab_window);
+    config_tab = new QWidget(tab_window);
+    tab_window->setGeometry(QRect(0, 0, 520, 625));
+    tab_window->addTab(monit_tab, "Monit");
+    tab_window->addTab(config_tab, "Config");
 
-    ch1.chan_num = "1";
-    drawChannel(ch1, 300, 450);
 
-    ch2.chan_num = "2";
-    drawChannel(ch2, 300, 300);
-
-    ch3.chan_num = "3";
-    drawChannel(ch3, 300, 150);
-
-    ch4.chan_num = "4";
-    drawChannel(ch4, 300, 10);
-
-    ch5.chan_num = "5";
-    drawChannel(ch5, 10, 450);
-
-    ch6.chan_num = "6";
-    drawChannel(ch6, 10, 300);
-
-    ch7.chan_num = "7";
-    drawChannel(ch7, 10, 150);
-
-    ch8.chan_num = "8";
-    drawChannel(ch8, 10, 10);
-
+    drawMonitoringTab();
+    drawConfigurationTab();
 
 
 //    /* MAX CURRENT LABEL */
@@ -159,6 +141,33 @@ EFuseBoardWidget::EFuseBoardWidget(QWidget *parent)
 
 }
 
+void EFuseBoardWidget::drawMonitoringTab()
+{
+	ch1.chan_num = "1";
+	drawChannel(ch1, 300, 450);
+
+	ch2.chan_num = "2";
+	drawChannel(ch2, 300, 300);
+
+	ch3.chan_num = "3";
+	drawChannel(ch3, 300, 150);
+
+	ch4.chan_num = "4";
+	drawChannel(ch4, 300, 10);
+
+	ch5.chan_num = "5";
+	drawChannel(ch5, 10, 450);
+
+	ch6.chan_num = "6";
+	drawChannel(ch6, 10, 300);
+
+	ch7.chan_num = "7";
+	drawChannel(ch7, 10, 150);
+
+	ch8.chan_num = "8";
+	drawChannel(ch8, 10, 10);
+}
+
 void EFuseBoardWidget::drawChannel(ChannelGroupBox &channel, int x_pos, int y_pos)
 {
 
@@ -169,7 +178,7 @@ void EFuseBoardWidget::drawChannel(ChannelGroupBox &channel, int x_pos, int y_po
     int third_row = 85;
     channel.max_current = 10.5;
 
-	channel.group_box = new QGroupBox(this);
+	channel.group_box = new QGroupBox(monit_tab);
 	channel.group_box->setGeometry(x_pos, y_pos, 200, 120);
 	channel.group_box->setStyleSheet("QGroupBox{border: 2px solid;}");
 
