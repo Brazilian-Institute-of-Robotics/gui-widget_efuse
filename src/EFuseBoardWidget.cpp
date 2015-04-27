@@ -25,24 +25,24 @@ EFuseBoardWidget::EFuseBoardWidget(QWidget *parent)
 	ch8.chan_num = "8";
 
     /* Draws Monitoring Tab */
-	drawMonitChannel(ch1, 300, 450);
-	drawMonitChannel(ch2, 300, 300);
-	drawMonitChannel(ch3, 300, 150);
-	drawMonitChannel(ch4, 300, 10);
-	drawMonitChannel(ch5, 10, 450);
-	drawMonitChannel(ch6, 10, 300);
-	drawMonitChannel(ch7, 10, 150);
-	drawMonitChannel(ch8, 10, 10);
+	drawMonitChannel(ch8, 300, 450);
+	drawMonitChannel(ch7, 300, 300);
+	drawMonitChannel(ch6, 300, 150);
+	drawMonitChannel(ch5, 300, 10);
+	drawMonitChannel(ch4, 10, 450);
+	drawMonitChannel(ch3, 10, 300);
+	drawMonitChannel(ch2, 10, 150);
+	drawMonitChannel(ch1, 10, 10);
 
     /* Draws Configuration Tab */
-	drawConfigChannel(ch1, 300, 450);
-	drawConfigChannel(ch2, 300, 300);
-	drawConfigChannel(ch3, 300, 150);
-	drawConfigChannel(ch4, 300, 10);
-	drawConfigChannel(ch5, 10, 450);
-	drawConfigChannel(ch6, 10, 300);
-	drawConfigChannel(ch7, 10, 150);
-	drawConfigChannel(ch8, 10, 10);
+	drawConfigChannel(ch8, 300, 450);
+	drawConfigChannel(ch7, 300, 300);
+	drawConfigChannel(ch6, 300, 150);
+	drawConfigChannel(ch5, 300, 10);
+	drawConfigChannel(ch4, 10, 450);
+	drawConfigChannel(ch3, 10, 300);
+	drawConfigChannel(ch2, 10, 150);
+	drawConfigChannel(ch1, 10, 10);
 
     show();
 
@@ -64,6 +64,61 @@ EFuseBoardWidget::~EFuseBoardWidget()
 	delete tab_window;
 }
 
+void EFuseBoardWidget::setBoardStatus(efuse_board::StatusBoard status_board)
+{
+	setChannelStatus(status_board.status_channel[0], ch1);
+	setChannelStatus(status_board.status_channel[1], ch2);
+	setChannelStatus(status_board.status_channel[2], ch3);
+	setChannelStatus(status_board.status_channel[3], ch4);
+	setChannelStatus(status_board.status_channel[4], ch5);
+	setChannelStatus(status_board.status_channel[5], ch6);
+	setChannelStatus(status_board.status_channel[6], ch7);
+	setChannelStatus(status_board.status_channel[7], ch8);
+}
+
+void setChannelStatus(efuse_board::StatusChannel &status_channel, ChannelGroupBox &channel)
+{
+	if(status_channel.status == true)
+	{
+		channel.status_channel->setStyleSheet("background-color: green;");
+	}
+	else
+	{
+		channel.status_channel->setStyleSheet("background-color: red;");
+	}
+
+	if(status_channel.power_up == true)
+	{
+		channel.status_power_up->setStyleSheet("background-color: green;");
+	}
+	else
+	{
+		channel.status_power_up->setStyleSheet("background-color: red;");
+	}
+
+	if(status_channel.check_voltage == true)
+	{
+		channel.status_voltage->setStyleSheet("background-color: green;");
+	}
+	else
+	{
+		channel.status_voltage->setStyleSheet("background-color: red;");
+	}
+
+	if(status_channel.check_led == true)
+	{
+		channel.status_led->setStyleSheet("background-color: green;");
+	}
+	else
+	{
+		channel.status_led->setStyleSheet("background-color: red;");
+	}
+
+
+	channel.value_current->setText(QString::number(status_channel.current));
+	channel.value_max_current->setText(QString::number(status_channel.max_current));
+	channel.progress_current->setMaximum(status_channel.max_current);
+}
 
 void EFuseBoardWidget::drawMonitChannel(ChannelGroupBox &channel, int x_pos, int y_pos)
 {

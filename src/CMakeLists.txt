@@ -23,7 +23,7 @@ rock_vizkit_widget(EFuseBoardWidget
     SOURCES ${SRCS} ${QtApp_RCC_SRCS}
     HEADERS ${HDRS}
     MOC ${MOC_HDRS}
-    DEPS_PKGCONFIG QtCore QtGui
+    DEPS_PKGCONFIG QtCore QtGui efuse_board
     UI ${UI_FILES}
 )
 

@@ -17,11 +17,11 @@ Vizkit::UiLoader::extend_cplusplus_widget_class "EFuseBoardWidget" do
     #orocos port connected to the widget the name is
     #custom and can be set via register_widget_for
     def update(sample,port_name)
-        #mySlot(sample)
+        setBoardStatus(sample)
     end
 end
 
 # register widget for a specific Typelib type to be 
 # accessible via rock tooling (rock-replay,...)
 # multiple register_widget_for are allowed for each widget
-# Vizkit::UiLoader.register_widget_for("EFuseBoardWidget","/base/Angle",:update)
+Vizkit::UiLoader.register_widget_for("EFuseBoardWidget","efuse_board/StatusBoard",:update)

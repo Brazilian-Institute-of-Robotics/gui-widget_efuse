@@ -3,6 +3,7 @@
 
 #include <QtGui>
 #include <boost/shared_ptr.hpp>
+#include "efuse_board/DataTypes.hpp"
 
 
 struct ChannelGroupBox
@@ -31,6 +32,10 @@ class EFuseBoardWidget : public QWidget
 public:
     EFuseBoardWidget(QWidget *parent = 0);
     virtual ~EFuseBoardWidget();
+    void setBoardStatus(efuse_board::StatusBoard status_board);
+
+private:
+    void setChannelStatus(efuse_board::StatusChannel &status_channel, ChannelGroupBox &channel);
     void drawMonitChannel(ChannelGroupBox &channel, int x_pos, int y_pos);
     void drawConfigChannel(ChannelGroupBox &channel, int x_pos, int y_pos);
     void deleteChannelPointers(ChannelGroupBox &channel);
