@@ -11,8 +11,8 @@ EFuseBoardWidget::EFuseBoardWidget(QWidget *parent)
     monit_tab = new QWidget(tab_window);
     config_tab = new QWidget(tab_window);
     tab_window->setGeometry(QRect(0, 0, 520, 625));
-    tab_window->addTab(monit_tab, "Monit");
-    tab_window->addTab(config_tab, "Config");
+    tab_window->addTab(monit_tab, "Main Monit");
+    tab_window->addTab(config_tab, "Full Monit");
 
     /* Initializes channels' number variable */
 	ch1.chan_num = "1";
@@ -76,18 +76,21 @@ void EFuseBoardWidget::setBoardStatus(efuse_board::StatusBoard status_board)
 	setChannelStatus(status_board.status_channel[7], ch8);
 }
 
-void setChannelStatus(efuse_board::StatusChannel &status_channel, ChannelGroupBox &channel)
+void EFuseBoardWidget::setChannelStatus(efuse_board::StatusChannel &status_channel, ChannelGroupBox &channel)
 {
-	if(status_channel.status == true)
+	if(status_channel.channel_on == true)
 	{
 		channel.status_channel->setStyleSheet("background-color: green;");
+		channel.monit_status_channel->setStyleSheet("background-color: green;");
+
 	}
 	else
 	{
 		channel.status_channel->setStyleSheet("background-color: red;");
+		channel.monit_status_channel->setStyleSheet("background-color: red;");
 	}
 
-	if(status_channel.power_up == true)
+	if(status_channel.default_on == true)
 	{
 		channel.status_power_up->setStyleSheet("background-color: green;");
 	}
@@ -105,13 +108,13 @@ void setChannelStatus(efuse_board::StatusChannel &status_channel, ChannelGroupBo
 		channel.status_voltage->setStyleSheet("background-color: red;");
 	}
 
-	if(status_channel.check_led == true)
+	if(status_channel.error_led == true)
 	{
-		channel.status_led->setStyleSheet("background-color: green;");
+		channel.status_led->setStyleSheet("background-color: red;");
 	}
 	else
 	{
-		channel.status_led->setStyleSheet("background-color: red;");
+		channel.status_led->setStyleSheet("background-color: green;");
 	}
 
 
@@ -152,7 +155,7 @@ void EFuseBoardWidget::drawMonitChannel(ChannelGroupBox &channel, int x_pos, int
 
 	/* ACTUAL CURRENT LABEL */
 
-	channel.label_current = new QLabel("Actual Current",channel.monit_group_box);
+	channel.label_current = new QLabel("Actual Current [A]",channel.monit_group_box);
 	channel.label_current->setObjectName("label_ch"+channel.chan_num+"_actual_curr");
 	channel.label_current->setFont(QFont("Verdana", 10));
 	channel.label_current->setGeometry(QRect(first_collumn, second_row, 115, 25));
@@ -202,17 +205,17 @@ void EFuseBoardWidget::drawConfigChannel(ChannelGroupBox &channel, int x_pos, in
 	channel.label_channel->setGeometry(QRect(first_collumn, first_row, 100, 20));
 	channel.label_channel->setAlignment(Qt::AlignHCenter);
 
-    /* CHANNEL STATUS */
+    /* CHANNEL ON */
 
-	channel.status_channel = new QLabel("",channel.config_group_box);
-	channel.status_channel->setObjectName("config_ch"+channel.chan_num+"_power");
-	channel.status_channel->setAlignment(Qt::AlignHCenter);
-	channel.status_channel->setGeometry(QRect(second_column, first_row+2.5, 50, 15));
-	channel.status_channel->setStyleSheet("background-color: red;");
+	channel.monit_status_channel = new QLabel("",channel.config_group_box);
+	channel.monit_status_channel->setObjectName("config_ch"+channel.chan_num+"_power");
+	channel.monit_status_channel->setAlignment(Qt::AlignHCenter);
+	channel.monit_status_channel->setGeometry(QRect(second_column, first_row+2.5, 50, 15));
+	channel.monit_status_channel->setStyleSheet("background-color: red;");
 
 	/* MAXIMUM CURRENT LABEL */
 
-	channel.label_max_current = new QLabel("Max. Current",channel.config_group_box);
+	channel.label_max_current = new QLabel("Max. Cur. [A]",channel.config_group_box);
 	channel.label_max_current->setObjectName("label_ch"+channel.chan_num+"_max_curr");
 	channel.label_max_current->setFont(QFont("Verdana", 10));
 	channel.label_max_current->setGeometry(QRect(first_collumn, second_row, 100, 20));
@@ -226,15 +229,15 @@ void EFuseBoardWidget::drawConfigChannel(ChannelGroupBox &channel, int x_pos, in
 	channel.value_max_current->setAlignment(Qt::AlignHCenter);
 	channel.value_max_current->setGeometry(QRect(second_column, second_row, 50, 20));
 
-	/* POWER UP LABEL */
+	/* DEFAULT ON LABEL */
 
-	channel.label_power_up = new QLabel("Power up",channel.config_group_box);
+	channel.label_power_up = new QLabel("Default On",channel.config_group_box);
 	channel.label_power_up->setObjectName("label_ch"+channel.chan_num+"_power_up");
 	channel.label_power_up->setFont(QFont("Verdana", 10));
 	channel.label_power_up->setGeometry(QRect(first_collumn, third_row, 100, 20));
 	channel.label_power_up->setAlignment(Qt::AlignLeft);
 
-	/* POWER UP STATUS */
+	/* DEFAULT ON STATUS */
 
 	channel.status_power_up = new QLabel("",channel.config_group_box);
 	channel.status_power_up->setObjectName("ch"+channel.chan_num+"_power_up");
@@ -244,7 +247,7 @@ void EFuseBoardWidget::drawConfigChannel(ChannelGroupBox &channel, int x_pos, in
 
 	/* VOLTAGE LABEL */
 
-	channel.label_voltage = new QLabel("Voltage",channel.config_group_box);
+	channel.label_voltage = new QLabel("Check Voltage",channel.config_group_box);
 	channel.label_voltage->setObjectName("label_ch"+channel.chan_num+"_voltage");
 	channel.label_voltage->setFont(QFont("Verdana", 10));
 	channel.label_voltage->setGeometry(QRect(first_collumn, fourth_row, 100, 20));
@@ -258,7 +261,7 @@ void EFuseBoardWidget::drawConfigChannel(ChannelGroupBox &channel, int x_pos, in
 	channel.status_voltage->setAlignment(Qt::AlignRight);
 	channel.status_voltage->setStyleSheet("background-color: red;");
 
-	/* LED LABEL */
+	/* ERROR LED LABEL */
 
 	channel.label_led = new QLabel("LED",channel.config_group_box);
 	channel.label_led->setObjectName("label_ch"+channel.chan_num+"_check_led");
@@ -266,7 +269,7 @@ void EFuseBoardWidget::drawConfigChannel(ChannelGroupBox &channel, int x_pos, in
 	channel.label_led->setGeometry(QRect(first_collumn, fith_row, 100, 20));
 	channel.label_led->setAlignment(Qt::AlignLeft);
 
-	/* LED STATUS */
+	/* ERROR LED STATUS */
 
 	channel.status_led = new QLabel("",channel.config_group_box);
 	channel.status_led->setObjectName("ch"+channel.chan_num+"_check_led");

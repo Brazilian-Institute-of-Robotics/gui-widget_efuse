@@ -17,6 +17,7 @@ struct ChannelGroupBox
 	QLabel 			*label_voltage;
 	QLabel 			*label_led;
 	QLabel 			*status_channel;
+	QLabel 			*monit_status_channel;
 	QLabel 			*status_power_up;
 	QLabel 			*status_voltage;
 	QLabel 			*status_led;
@@ -32,6 +33,8 @@ class EFuseBoardWidget : public QWidget
 public:
     EFuseBoardWidget(QWidget *parent = 0);
     virtual ~EFuseBoardWidget();
+
+public slots:
     void setBoardStatus(efuse_board::StatusBoard status_board);
 
 private:
