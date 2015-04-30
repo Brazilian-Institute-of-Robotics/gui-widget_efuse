@@ -8,23 +8,29 @@
 
 struct ChannelGroupBox
 {
-	QGroupBox 		*monit_group_box;
-	QGroupBox 		*config_group_box;
-	QLabel 			*label_channel;
+	QString  	 	 chan_num;
+
+	/* Main Monit */
+	QGroupBox 		*group_box1;
+	QLabel 			*label_channel1;
 	QLabel 			*label_current;
+	QLabel 			*status_channel1;
+	QLabel 			*value_current;
+	QLabel 			*label_error;
+	QProgressBar 	*progress_current;
+
+	/* Full Monit */
+	QGroupBox 		*group_box2;
+	QLabel 			*label_channel2;
 	QLabel 			*label_max_current;
 	QLabel 			*label_power_up;
-	QLabel 			*label_voltage;
+	QLabel 			*label_turn_on;
 	QLabel 			*label_led;
-	QLabel 			*status_channel;
-	QLabel 			*monit_status_channel;
-	QLabel 			*status_power_up;
-	QLabel 			*status_voltage;
-	QLabel 			*status_led;
-	QLabel 			*value_current;
 	QLabel 			*value_max_current;
-	QProgressBar 	*progress_current;
-	QString  	 	 chan_num;
+	QLabel 			*status_channel2;
+	QLabel 			*status_power_up;
+	QLabel 			*status_turn_on;
+	QLabel 			*status_led;
 };
 
 class EFuseBoardWidget : public QWidget
@@ -57,6 +63,8 @@ private:
     QTabWidget 	*tab_window;
     QWidget 	*config_tab;
     QWidget 	*monit_tab;
+    QLabel		*board_label1;
+    QLabel		*board_label2;
 
 };
 
