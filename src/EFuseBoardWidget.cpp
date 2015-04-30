@@ -87,25 +87,74 @@ void EFuseBoardWidget::setBoardStatus(efuse_board::StatusBoard status_board)
 		board_label2->setText(QString::fromStdString((status_board.name)).toUpper());
 	}
 
-	if(status_board.chan_names.size() == 8)
+	if(status_board.status_channel[0].name != "")
 	{
-		ch1.label_channel1->setText(QString::fromStdString((status_board.chan_names[0])));
-		ch1.label_channel2->setText(QString::fromStdString((status_board.chan_names[0])));
-		ch2.label_channel1->setText(QString::fromStdString((status_board.chan_names[1])));
-		ch2.label_channel2->setText(QString::fromStdString((status_board.chan_names[1])));
-		ch3.label_channel1->setText(QString::fromStdString((status_board.chan_names[2])));
-		ch3.label_channel2->setText(QString::fromStdString((status_board.chan_names[2])));
-		ch4.label_channel1->setText(QString::fromStdString((status_board.chan_names[3])));
-		ch4.label_channel2->setText(QString::fromStdString((status_board.chan_names[3])));
-		ch5.label_channel1->setText(QString::fromStdString((status_board.chan_names[4])));
-		ch5.label_channel2->setText(QString::fromStdString((status_board.chan_names[4])));
-		ch6.label_channel1->setText(QString::fromStdString((status_board.chan_names[5])));
-		ch6.label_channel2->setText(QString::fromStdString((status_board.chan_names[5])));
-		ch7.label_channel1->setText(QString::fromStdString((status_board.chan_names[6])));
-		ch7.label_channel2->setText(QString::fromStdString((status_board.chan_names[6])));
-		ch8.label_channel1->setText(QString::fromStdString((status_board.chan_names[7])));
-		ch8.label_channel2->setText(QString::fromStdString((status_board.chan_names[7])));
+		ch1.label_channel1->setText(QString::fromStdString((status_board.status_channel[0].name)));
+		ch1.label_channel2->setText(QString::fromStdString((status_board.status_channel[0].name)));
 	}
+
+	if(status_board.status_channel[1].name != "")
+	{
+		ch2.label_channel1->setText(QString::fromStdString((status_board.status_channel[1].name)));
+		ch2.label_channel2->setText(QString::fromStdString((status_board.status_channel[1].name)));
+	}
+
+	if(status_board.status_channel[2].name != "")
+	{
+		ch3.label_channel1->setText(QString::fromStdString((status_board.status_channel[2].name)));
+		ch3.label_channel2->setText(QString::fromStdString((status_board.status_channel[2].name)));
+	}
+
+	if(status_board.status_channel[3].name != "")
+	{
+		ch4.label_channel1->setText(QString::fromStdString((status_board.status_channel[3].name)));
+		ch4.label_channel2->setText(QString::fromStdString((status_board.status_channel[3].name)));
+	}
+
+	if(status_board.status_channel[4].name != "")
+	{
+		ch5.label_channel1->setText(QString::fromStdString((status_board.status_channel[4].name)));
+		ch5.label_channel2->setText(QString::fromStdString((status_board.status_channel[4].name)));
+	}
+
+	if(status_board.status_channel[5].name != "")
+	{
+		ch6.label_channel1->setText(QString::fromStdString((status_board.status_channel[5].name)));
+		ch6.label_channel2->setText(QString::fromStdString((status_board.status_channel[5].name)));
+	}
+
+	if(status_board.status_channel[6].name != "")
+	{
+		ch7.label_channel1->setText(QString::fromStdString((status_board.status_channel[6].name)));
+		ch7.label_channel2->setText(QString::fromStdString((status_board.status_channel[6].name)));
+	}
+
+	if(status_board.status_channel[7].name != "")
+	{
+		ch8.label_channel1->setText(QString::fromStdString((status_board.status_channel[7].name)));
+		ch8.label_channel2->setText(QString::fromStdString((status_board.status_channel[7].name)));
+	}
+
+
+//	if(status_board.chan_names.size() == 8)
+//	{
+//		ch1.label_channel1->setText(QString::fromStdString((status_board.chan_names[0])));
+//		ch1.label_channel2->setText(QString::fromStdString((status_board.chan_names[0])));
+//		ch2.label_channel1->setText(QString::fromStdString((status_board.chan_names[1])));
+//		ch2.label_channel2->setText(QString::fromStdString((status_board.chan_names[1])));
+//		ch3.label_channel1->setText(QString::fromStdString((status_board.chan_names[2])));
+//		ch3.label_channel2->setText(QString::fromStdString((status_board.chan_names[2])));
+//		ch4.label_channel1->setText(QString::fromStdString((status_board.chan_names[3])));
+//		ch4.label_channel2->setText(QString::fromStdString((status_board.chan_names[3])));
+//		ch5.label_channel1->setText(QString::fromStdString((status_board.chan_names[4])));
+//		ch5.label_channel2->setText(QString::fromStdString((status_board.chan_names[4])));
+//		ch6.label_channel1->setText(QString::fromStdString((status_board.chan_names[5])));
+//		ch6.label_channel2->setText(QString::fromStdString((status_board.chan_names[5])));
+//		ch7.label_channel1->setText(QString::fromStdString((status_board.chan_names[6])));
+//		ch7.label_channel2->setText(QString::fromStdString((status_board.chan_names[6])));
+//		ch8.label_channel1->setText(QString::fromStdString((status_board.chan_names[7])));
+//		ch8.label_channel2->setText(QString::fromStdString((status_board.chan_names[7])));
+//	}
 
 	setChannelStatus(status_board.status_channel[0], ch1);
 	setChannelStatus(status_board.status_channel[1], ch2);
@@ -160,6 +209,11 @@ void EFuseBoardWidget::setChannelStatus(efuse_board::StatusChannel &status_chann
 	else if(status_channel.check_voltage == true &&
 		    status_channel.channel_on == false   &&
 			status_channel.error_led == false)
+	{
+		channel.status_led->setStyleSheet("background-color: red;");
+		channel.label_error->setVisible(true);
+	}
+	else if(status_channel.ret_msg != 1)
 	{
 		channel.status_led->setStyleSheet("background-color: red;");
 		channel.label_error->setVisible(true);
