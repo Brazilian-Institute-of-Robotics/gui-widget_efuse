@@ -155,6 +155,7 @@ void EFuseBoardWidget::setChannelStatus(efuse_board::StatusChannel &status_chann
 	   status_channel.error_led == false)
 	{
 		channel.status_led->setStyleSheet("background-color: green;");
+		channel.label_error->setVisible(false);
 	}
 	else if(status_channel.check_voltage == true &&
 		    status_channel.channel_on == false   &&
@@ -166,12 +167,14 @@ void EFuseBoardWidget::setChannelStatus(efuse_board::StatusChannel &status_chann
 	else
 	{
 		channel.status_led->setStyleSheet("background-color: gray;");
+		channel.label_error->setVisible(false);
 	}
 
 
 	channel.value_current->setText(QString::number(status_channel.current));
 	channel.value_max_current->setText(QString::number(status_channel.max_current));
-	channel.progress_current->setMaximum(status_channel.max_current);
+	channel.progress_current->setValue((status_channel.current*10));
+	channel.progress_current->setMaximum(status_channel.max_current*10);
 }
 
 void EFuseBoardWidget::drawMonitChannel(ChannelGroupBox &channel, int x_pos, int y_pos)
