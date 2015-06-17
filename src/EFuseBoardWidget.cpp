@@ -251,8 +251,9 @@ void EFuseBoardWidget::drawMonitChannel(ChannelGroupBox &channel, int x_pos, int
 	channel.label_channel1 = new QLabel("CH "+channel.chan_num,channel.group_box1);
 	channel.label_channel1->setObjectName("monit_label_ch"+channel.chan_num);
 	channel.label_channel1->setFont(QFont("Verdana", 10, 100));
-	channel.label_channel1->setGeometry(QRect(first_collumn, first_row, 120, 20));
+	channel.label_channel1->setGeometry(QRect(first_collumn, first_row, 120, 42.5));
 	channel.label_channel1->setAlignment(Qt::AlignHCenter);
+	channel.label_channel1->setWordWrap(true);
 
     /* CHANNEL STATUS */
 
@@ -266,8 +267,8 @@ void EFuseBoardWidget::drawMonitChannel(ChannelGroupBox &channel, int x_pos, int
 
 	channel.label_error = new QLabel("ERROR",channel.group_box1);
 	channel.label_error->setObjectName("label_ch"+channel.chan_num+"_error");
-	channel.label_error->setFont(QFont("Verdana", 10, 100));
-	channel.label_error->setGeometry(QRect(0, error_row, 200, 20));
+	channel.label_error->setFont(QFont("Verdana", 8, 100));
+	channel.label_error->setGeometry(QRect(second_column, error_row, 50, 20));
 	channel.label_error->setAlignment(Qt::AlignHCenter);
 	channel.label_error->setStyleSheet("color: red;");
 	channel.label_error->setVisible(false);
