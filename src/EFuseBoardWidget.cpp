@@ -91,48 +91,96 @@ void EFuseBoardWidget::setBoardStatus(efuse_board::StatusBoard status_board)
 	{
 		ch1.label_channel1->setText(QString::fromStdString((status_board.status_channel[0].name)));
 		ch1.label_channel2->setText(QString::fromStdString((status_board.status_channel[0].name)));
+
+		if(status_board.status_channel[0].name.size()>25)
+		{
+			ch1.label_channel1->setFont(QFont("Verdana", 8, 100));
+			ch1.label_channel2->setFont(QFont("Verdana", 8, 100));
+		}
 	}
 
 	if(status_board.status_channel[1].name != "")
 	{
 		ch2.label_channel1->setText(QString::fromStdString((status_board.status_channel[1].name)));
 		ch2.label_channel2->setText(QString::fromStdString((status_board.status_channel[1].name)));
+
+		if(status_board.status_channel[1].name.size()>25)
+		{
+			ch2.label_channel1->setFont(QFont("Verdana", 8, 100));
+			ch2.label_channel2->setFont(QFont("Verdana", 8, 100));
+		}
 	}
 
 	if(status_board.status_channel[2].name != "")
 	{
 		ch3.label_channel1->setText(QString::fromStdString((status_board.status_channel[2].name)));
 		ch3.label_channel2->setText(QString::fromStdString((status_board.status_channel[2].name)));
+
+		if(status_board.status_channel[2].name.size()>25)
+		{
+			ch3.label_channel1->setFont(QFont("Verdana", 8, 100));
+			ch3.label_channel2->setFont(QFont("Verdana", 8, 100));
+		}
 	}
 
 	if(status_board.status_channel[3].name != "")
 	{
 		ch4.label_channel1->setText(QString::fromStdString((status_board.status_channel[3].name)));
 		ch4.label_channel2->setText(QString::fromStdString((status_board.status_channel[3].name)));
+
+		if(status_board.status_channel[3].name.size()>25)
+		{
+			ch4.label_channel1->setFont(QFont("Verdana", 8, 100));
+			ch4.label_channel2->setFont(QFont("Verdana", 8, 100));
+		}
 	}
 
 	if(status_board.status_channel[4].name != "")
 	{
 		ch5.label_channel1->setText(QString::fromStdString((status_board.status_channel[4].name)));
 		ch5.label_channel2->setText(QString::fromStdString((status_board.status_channel[4].name)));
+
+		if(status_board.status_channel[4].name.size()>25)
+		{
+			ch5.label_channel1->setFont(QFont("Verdana", 8, 100));
+			ch5.label_channel2->setFont(QFont("Verdana", 8, 100));
+		}
 	}
 
 	if(status_board.status_channel[5].name != "")
 	{
 		ch6.label_channel1->setText(QString::fromStdString((status_board.status_channel[5].name)));
 		ch6.label_channel2->setText(QString::fromStdString((status_board.status_channel[5].name)));
+
+		if(status_board.status_channel[5].name.size()>25)
+		{
+			ch6.label_channel1->setFont(QFont("Verdana", 8, 100));
+			ch6.label_channel2->setFont(QFont("Verdana", 8, 100));
+		}
 	}
 
 	if(status_board.status_channel[6].name != "")
 	{
 		ch7.label_channel1->setText(QString::fromStdString((status_board.status_channel[6].name)));
 		ch7.label_channel2->setText(QString::fromStdString((status_board.status_channel[6].name)));
+
+		if(status_board.status_channel[6].name.size()>25)
+		{
+			ch7.label_channel1->setFont(QFont("Verdana", 8, 100));
+			ch7.label_channel2->setFont(QFont("Verdana", 8, 100));
+		}
 	}
 
 	if(status_board.status_channel[7].name != "")
 	{
 		ch8.label_channel1->setText(QString::fromStdString((status_board.status_channel[7].name)));
 		ch8.label_channel2->setText(QString::fromStdString((status_board.status_channel[7].name)));
+
+		if(status_board.status_channel[7].name.size()>25)
+		{
+			ch8.label_channel1->setFont(QFont("Verdana", 8, 100));
+			ch8.label_channel2->setFont(QFont("Verdana", 8, 100));
+		}
 	}
 
 
